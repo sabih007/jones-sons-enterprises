@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  /* Sampled from the Jones & Sons mark: near-black ground, crimson J, white wordmark. */
+  --color-ink: #0c0c0e;
+  --color-ink-2: #15151a;
+  --color-ivory: #f6f4f2;
+  --color-paper: #ffffff;
+  --color-accent: #ef5257;
+  --color-accent-deep: #b02b31;
+  --color-slate: #6e6e76;
+  --color-stone: #e4e2de;
+
+  --font-display: var(--font-afacad), "Afacad", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-afacad), "Afacad", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-house: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+    font-feature-settings: "kern", "liga";
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-paper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    /* Afacad is a sans, so the display voice comes from weight and tight tracking. */
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 0.98;
+  }
+  .shell {
+    @apply mx-auto w-full max-w-[1360px] px-5 sm:px-8 lg:px-12;
+  }
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s var(--ease-house);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer components {
+  /* Word masks built by ScrollFX for data-fx="words". The padding/margin pair
+     keeps descenders out of the clip and leaves the baseline where it was. */
+  .fx-word {
+    display: inline-block;
+    overflow: hidden;
+    padding-bottom: 0.2em;
+    margin-bottom: -0.2em;
+  }
+  .fx-word > span {
+    display: inline-block;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
