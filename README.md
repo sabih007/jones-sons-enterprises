@@ -2,6 +2,21 @@
 
 Corporate website for Jones & Sons Enterprises, a family-owned holding company in Rancho Palos Verdes, California.
 
+There are two builds of the same site in this repo:
+
+| | Stack | Deploy |
+| --- | --- | --- |
+| **`static/`** — the one to ship | Plain HTML, CSS, JS + GSAP from a CDN. No build step. | Point the host at `static/`. See [`static/README.md`](static/README.md). |
+| `src/` | Next.js 15, TypeScript, Tailwind v4, Motion | `npm run build` |
+
+`static/` is a complete, hand-written port of the Next.js app — same copy, same layout,
+same motion, same nine pages — made so the site deploys as static files with nothing to
+build. Its copy lives in `tools/content.mjs`; `node tools/build.mjs` regenerates the HTML.
+
+The rest of this file documents the original Next.js app.
+
+---
+
 Built with Next.js 15 (App Router), TypeScript, Tailwind CSS v4, GSAP + ScrollTrigger, Motion, and Lucide icons.
 Type is Afacad (via `next/font`) throughout; the palette is sampled from the house mark in `public/logo.jpg`.
 
