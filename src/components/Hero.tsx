@@ -178,7 +178,7 @@ export function Hero() {
           <div className="mt-7 flex flex-wrap items-center justify-between gap-6">
             <div data-fade className="flex flex-wrap gap-3">
               <ButtonLink href="/#brands">Explore our brands</ButtonLink>
-              <ButtonLink href="/#about" variant="ghost-light">
+              <ButtonLink href="/about" variant="ghost-light">
                 Discover our story
               </ButtonLink>
             </div>

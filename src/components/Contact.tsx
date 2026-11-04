@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
 const empty: ContactInput = { name: "", email: "", company: "", topic: "", message: "" };
 type Status = "idle" | "sending" | "sent" | "error";
 
-export function Contact() {
+export function Contact({ standalone = false }: { standalone?: boolean }) {
   const [values, setValues] = useState<ContactInput>(empty);
   const [errors, setErrors] = useState<ContactErrors>({});
   const [touched, setTouched] = useState<Partial<Record<keyof ContactInput, boolean>>>({});
@@ -64,16 +64,23 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="grain bg-ink py-28 text-ivory lg:py-40">
+    <section
+      id="contact"
+      aria-labelledby={standalone ? undefined : "contact-title"}
+      aria-label={standalone ? "Contact" : undefined}
+      className={cn("grain bg-ink text-ivory", standalone ? "py-20 lg:py-28" : "py-28 lg:py-40")}
+    >
       <div className="shell">
-        <SectionHeading
-          id="contact-title"
-          tone="ivory"
-          kicker="Contact"
-          title="Start a conversation with the family."
-        />
+        {standalone ? null : (
+          <SectionHeading
+            id="contact-title"
+            tone="ivory"
+            kicker="Contact"
+            title="Start a conversation with the family."
+          />
+        )}
 
-        <div className="mt-20 grid gap-16 lg:grid-cols-12 lg:gap-12">
+        <div className={cn("grid gap-16 lg:grid-cols-12 lg:gap-12", !standalone && "mt-20")}>
           <div className="space-y-10 lg:col-span-4">
             <p className="max-w-[36ch] text-lg leading-relaxed text-ivory/70">
               For partnerships, media requests, or questions about one of our brands, send a note and the right

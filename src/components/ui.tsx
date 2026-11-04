@@ -120,6 +120,42 @@ export function SectionHeading({
   );
 }
 
+/**
+ * The masthead for a standalone inner page, mirroring the brand pages.
+ *
+ * Inner routes must open on this dark band: the header sits fixed and
+ * transparent until it goes solid at 48px, so a page that started on an ivory
+ * section would render an ivory wordmark on an ivory ground.
+ */
+export function PageHero({
+  kicker,
+  title,
+  intro,
+}: {
+  kicker: string;
+  title: React.ReactNode;
+  intro?: React.ReactNode;
+}) {
+  return (
+    <header className="grain bg-ink pb-20 pt-36 text-ivory lg:pb-28 lg:pt-44">
+      <div data-fx="group" className="shell">
+        <p data-fx-item className="flex items-center gap-3 text-sm text-accent">
+          <span aria-hidden data-fx="rule" className="h-px w-8 bg-current" />
+          {kicker}
+        </p>
+        <h1 data-fx-item className="display mt-8 max-w-[18ch] text-balance text-[clamp(2.8rem,7vw,6rem)]">
+          {title}
+        </h1>
+        {intro ? (
+          <p data-fx-item className="mt-8 max-w-[54ch] text-xl leading-relaxed text-ivory/70">
+            {intro}
+          </p>
+        ) : null}
+      </div>
+    </header>
+  );
+}
+
 export function ExternalLink({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className={cn("link-underline inline-flex items-center gap-1", className)}>

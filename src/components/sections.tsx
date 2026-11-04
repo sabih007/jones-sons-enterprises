@@ -1,21 +1,41 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { site, values } from "@/content/site";
 import { brandsInSector, sectors } from "@/content/brands";
 import { initiatives, press } from "@/content/press";
 import { formatDate } from "@/lib/format";
+import { cn } from "@/lib/cn";
 import { ExternalLink, SectionHeading } from "./ui";
 
-export function About() {
-  return (
-    <section id="about" aria-labelledby="about-title" className="bg-ivory py-28 lg:py-40">
-      <div className="shell">
-        <SectionHeading
-          id="about-title"
-          kicker="About Jones & Sons"
-          title="A family business that thinks in decades."
-        />
+/**
+ * Every section below renders either as a band on the homepage or as the body
+ * of its own route.
+ *
+ * `standalone` means the section sits under a <PageHero>, which already supplies
+ * the <h1> and the kicker. In that mode the section drops its own SectionHeading
+ * (so the page has one heading, not two), trims its top padding, and labels
+ * itself with aria-label since the heading it pointed at no longer exists.
+ */
+export type SectionProps = { standalone?: boolean };
 
-        <div className="mt-20 grid gap-16 lg:grid-cols-12 lg:gap-12">
+export function About({ standalone = false }: SectionProps) {
+  return (
+    <section
+      id="about"
+      aria-labelledby={standalone ? undefined : "about-title"}
+      aria-label={standalone ? "About Jones & Sons" : undefined}
+      className={cn("bg-ivory", standalone ? "py-20 lg:py-28" : "py-28 lg:py-40")}
+    >
+      <div className="shell">
+        {standalone ? null : (
+          <SectionHeading
+            id="about-title"
+            kicker="About Jones & Sons"
+            title="A family business that thinks in decades."
+          />
+        )}
+
+        <div className={cn("grid gap-16 lg:grid-cols-12 lg:gap-12", !standalone && "mt-20")}>
           <div data-fx="mask" className="lg:col-span-5 lg:col-start-1">
             <figure className="relative overflow-hidden bg-ink p-8 text-ivory sm:p-12">
               <span
@@ -78,18 +98,25 @@ export function About() {
   );
 }
 
-export function Industries() {
+export function Industries({ standalone = false }: SectionProps) {
   return (
-    <section id="industries" aria-labelledby="industries-title" className="bg-paper py-28 lg:py-40">
+    <section
+      id="industries"
+      aria-labelledby={standalone ? undefined : "industries-title"}
+      aria-label={standalone ? "Industries and expertise" : undefined}
+      className={cn("bg-paper", standalone ? "py-20 lg:py-28" : "py-28 lg:py-40")}
+    >
       <div className="shell">
-        <SectionHeading
-          id="industries-title"
-          kicker="Industries & expertise"
-          title="Six industries, one family standard."
-          intro="Each industry below is run through one or more of our operating brands. Select a brand to see what it does."
-        />
+        {standalone ? null : (
+          <SectionHeading
+            id="industries-title"
+            kicker="Industries & expertise"
+            title="Six industries, one family standard."
+            intro="Each industry below is run through one or more of our operating brands. Select a brand to see what it does."
+          />
+        )}
 
-        <ul data-fx="group" className="mt-20 border-t border-ink/12">
+        <ul data-fx="group" className={cn("border-t border-ink/12", !standalone && "mt-20")}>
           {sectors.map((s) => {
             const inSector = brandsInSector(s.id);
             return (
@@ -164,20 +191,27 @@ export function Mission() {
   );
 }
 
-export function Community() {
+export function Community({ standalone = false }: SectionProps) {
   return (
-    <section id="community" aria-labelledby="community-title" className="bg-paper py-28 lg:py-40">
+    <section
+      id="community"
+      aria-labelledby={standalone ? undefined : "community-title"}
+      aria-label={standalone ? "Community impact" : undefined}
+      className={cn("bg-paper", standalone ? "py-20 lg:py-28" : "py-28 lg:py-40")}
+    >
       <div className="shell">
-        <SectionHeading
-          id="community-title"
-          kicker="Community impact"
-          title="Good business should be felt on the block."
-          intro="Through youth sports camps, charity drives, and partnerships led by our brands, the group puts its resources into Southern California families. Recent initiatives through CAL Dental USA include:"
-        />
+        {standalone ? null : (
+          <SectionHeading
+            id="community-title"
+            kicker="Community impact"
+            title="Good business should be felt on the block."
+            intro="Through youth sports camps, charity drives, and partnerships led by our brands, the group puts its resources into Southern California families. Recent initiatives through CAL Dental USA include:"
+          />
+        )}
 
         <ul
           data-fx="group"
-          className="mt-20 grid gap-px overflow-hidden bg-ink/10 sm:grid-cols-2 lg:grid-cols-3"
+          className={cn("grid gap-px overflow-hidden bg-ink/10 sm:grid-cols-2 lg:grid-cols-3", !standalone && "mt-20")}
         >
           {initiatives.map((i) => (
             <li key={i.name} data-fx-item className="flex flex-col bg-paper p-8 lg:p-10">
@@ -197,16 +231,29 @@ export function Community() {
   );
 }
 
-export function Press() {
+export function Press({ standalone = false }: SectionProps) {
   const sorted = [...press].sort((a, b) => (b.date ?? "0").localeCompare(a.date ?? "0"));
   const [lead, ...rest] = sorted;
   return (
-    <section id="press" aria-labelledby="press-title" className="bg-ivory py-28 lg:py-40">
+    <section
+      id="press"
+      aria-labelledby={standalone ? undefined : "press-title"}
+      aria-label={standalone ? "News and press" : undefined}
+      className={cn("bg-ivory", standalone ? "py-20 lg:py-28" : "py-28 lg:py-40")}
+    >
       <div className="shell">
-        <SectionHeading id="press-title" kicker="News & press" title="In the news across the portfolio." />
+        {standalone ? null : (
+          <SectionHeading id="press-title" kicker="News & press" title="In the news across the portfolio." />
+        )}
 
         {lead ? (
-          <article data-fx="mask" className="group relative mt-20 grid gap-8 bg-ink p-8 text-ivory sm:p-12 lg:grid-cols-12 lg:gap-12 lg:p-16">
+          <article
+            data-fx="mask"
+            className={cn(
+              "group relative grid gap-8 bg-ink p-8 text-ivory sm:p-12 lg:grid-cols-12 lg:gap-12 lg:p-16",
+              !standalone && "mt-20",
+            )}
+          >
             <div className="lg:col-span-3">
               <p className="text-sm text-accent">Latest</p>
               {lead.date ? (
@@ -249,6 +296,52 @@ export function Press() {
                   <span className="sr-only"> (opens in a new tab)</span>
                 </span>
               </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * The homepage's way into the inner pages. Without it the sections that moved
+ * out to their own routes would only be reachable from the header and footer.
+ */
+const innerPages = [
+  { href: "/about", name: "About", text: "The family, the founding, and the standard every brand is held to." },
+  { href: "/industries", name: "Industries", text: "Six industries, and the operating brands that run each one." },
+  { href: "/community", name: "Community", text: "Where the group puts its resources in Southern California." },
+  { href: "/news", name: "News & press", text: "Coverage of the group's brands, newest first." },
+  { href: "/contact", name: "Contact", text: "Partnerships, media requests, and questions about our brands." },
+];
+
+export function Explore() {
+  return (
+    <section id="explore" aria-labelledby="explore-title" className="bg-paper py-28 lg:py-40">
+      <div className="shell">
+        <SectionHeading id="explore-title" kicker="Explore" title="More about the group." />
+
+        <ul data-fx="group" className="mt-20 border-t border-ink/12">
+          {innerPages.map((p) => (
+            <li key={p.href} data-fx-item className="border-b border-ink/12">
+              <Link
+                href={p.href}
+                className="group grid gap-4 py-8 transition-colors duration-500 hover:bg-ivory sm:py-10 lg:grid-cols-12 lg:gap-12 lg:px-4"
+              >
+                <span className="display text-[clamp(2rem,3.6vw,3rem)] leading-none transition-transform duration-700 ease-[var(--ease-house)] group-hover:translate-x-2 lg:col-span-5">
+                  {p.name}
+                </span>
+                <span className="max-w-[48ch] text-[1.05rem] leading-relaxed text-slate lg:col-span-6 lg:pt-2">
+                  {p.text}
+                </span>
+                <span className="hidden items-center justify-end lg:col-span-1 lg:flex">
+                  <ArrowRight
+                    aria-hidden
+                    className="size-6 text-ink/30 transition-all duration-500 group-hover:translate-x-1 group-hover:text-accent-deep"
+                  />
+                </span>
+              </Link>
             </li>
           ))}
         </ul>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { nav, site } from "@/content/site";
+import { footerNav, nav, site } from "@/content/site";
 import { Wordmark } from "./ui";
 import { cn } from "@/lib/cn";
 
@@ -62,7 +62,7 @@ export function Header() {
         </Link>
 
         <nav aria-label="Primary" className="hidden lg:block">
-          <ul className="flex items-center gap-8">
+          <ul className="flex items-center gap-6 xl:gap-8">
             {nav.slice(0, -1).map((item) => (
               <li key={item.href}>
                 <Link
@@ -78,7 +78,7 @@ export function Header() {
             ))}
             <li>
               <Link
-                href="/#contact"
+                href="/contact"
                 className={cn(
                   "inline-flex min-h-11 items-center rounded-full px-5 text-[0.92rem] font-semibold transition-colors duration-500",
                   solid ? "bg-ink text-ivory hover:bg-accent hover:text-ink" : "bg-ivory text-ink hover:bg-accent",
@@ -118,7 +118,7 @@ export function Header() {
           >
             <nav aria-label="Mobile" className="shell flex h-full flex-col justify-between pb-10 pt-28">
               <ul className="space-y-1">
-                {nav.map((item, i) => (
+                {footerNav.map((item, i) => (
                   <motion.li
                     key={item.href}
                     initial={reduce ? false : { opacity: 0, y: 24 }}

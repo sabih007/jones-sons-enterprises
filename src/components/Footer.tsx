@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { brands } from "@/content/brands";
-import { nav, site, social } from "@/content/site";
+import { footerNav, site, social } from "@/content/site";
 import { BackToTop } from "./BackToTop";
 import { ExternalLink, Wordmark } from "./ui";
 
@@ -20,7 +20,7 @@ export function Footer() {
           <nav aria-label="Footer" className="lg:col-span-2">
             <p className="text-sm text-accent">Company</p>
             <ul className="mt-5 space-y-3">
-              {nav.map((n) => (
+              {footerNav.map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} className="link-underline text-ivory/80 hover:text-ivory">
                     {n.label}

@@ -13,14 +13,33 @@ export const site = {
   ],
 } as const;
 
+/**
+ * Primary header navigation. About, Industries, News and Contact are their own
+ * routes; Brands and Mission remain sections of the homepage, so they stay anchors.
+ * The desktop bar is tight at 1024px with this many items, so the nav list
+ * narrows its gap below xl.
+ */
 export const nav = [
-  { label: "About", href: "/#about" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Our brands", href: "/#brands" },
-  { label: "Industries", href: "/#industries" },
+  { label: "Industries", href: "/industries" },
   { label: "Our mission", href: "/#mission" },
-  { label: "News & press", href: "/#press" },
-  { label: "Contact", href: "/#contact" },
+  { label: "News & press", href: "/news" },
+  { label: "Contact", href: "/contact" },
 ] as const;
+
+/** The header nav plus Community, which has a page but no room in the top bar. */
+export const footerNav: { label: string; href: string }[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Our brands", href: "/#brands" },
+  { label: "Industries", href: "/industries" },
+  { label: "Our mission", href: "/#mission" },
+  { label: "Community", href: "/community" },
+  { label: "News & press", href: "/news" },
+  { label: "Contact", href: "/contact" },
+];
 
 export const values = [
   { name: "Family", text: "We build what we would be proud to hand to the next generation." },
